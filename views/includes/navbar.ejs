@@ -20,6 +20,16 @@
   padding: 0.5rem 3rem 0.5rem 3rem ;
   font-size: 1rem;
 }
+
+.aibtn {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
@@ -37,11 +47,15 @@
       </div>
       
       <div class=" navbar-nav ms-auto">
-         <form class="d-flex" role="search">
-        <input class="form-control me-2  search-btn" type="search" placeholder="Search destinations"  aria-label="Search"/>
-        <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search </button>
+         <form class="d-flex" role="search" method="get"  action="/listings/search">
+        <input class="form-control me-2  search-btn" name="destination" type="search" placeholder="Search destinations"  aria-label="Search"/>
+        <button class="btn btn-search"  type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search </button>
        
       </form>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <a href="/ai" class="btn btn-danger" class="aibtn">AI Travel Assistant</a>
       </div>
 
         <div class="navbar-nav ms-auto">

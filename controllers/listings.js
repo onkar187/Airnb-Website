@@ -1,4 +1,5 @@
 let Listing = require("../models/listing");
+let Guest = require("../models/Guest")
 
 module.exports.index = async (req,res)=>{
 const allListings =  await Listing.find({});
@@ -69,3 +70,67 @@ module.exports.deleteListing = async(req,res)=>{
   req.flash("success","Listing Deleted")
     res.redirect("/listings");
 };
+
+module.exports.searchListing = async(req,res)=>{
+   
+ //console.log(req.body);
+   let {destination} = req.query;
+    let allListings =  await Listing.find({});
+    allListings = allListings.filter((list) =>
+    list.location.toLowerCase() === destination.toLowerCase() ||
+    list.country.toLowerCase() === destination.toLowerCase()
+    );
+
+    if(allListings.length ==0)
+    {
+        req.flash("error","No destination available");
+      return  res.redirect("/listings");
+    }
+
+    res.render("listings/destination.ejs",{allListings});
+//console.log(listing);
+}
+
+
+module.exports.bookForm = async (req,res)=>{
+   let {id} = req.params;
+   res.render("listings/book.ejs",{id});
+
+}
+
+
+module.exports.bookListing= async(req,res)=>{
+console.log(req.body.guest);
+ let {id} = req.params   
+
+ const { checkIn, checkOut } = req.body.guest;
+
+    // Check whether dates are already booked
+    const existingBooking = await Guest.findOne({
+        listing: id,
+        checkIn: { $lt: new Date(checkOut) },
+        checkOut: { $gt: new Date(checkIn) }
+    });
+
+    if (existingBooking) {
+        req.flash(
+            "error",
+            "Listing is already booked for these dates"
+        );
+
+        return res.redirect(`/listings/${id}`);
+    }
+
+let book = new Guest(req.body.guest);
+ book.listing = id ;
+await book.save();
+req.flash("success","Booked Succssfully");
+ res.redirect("/listings");
+}
+
+
+//let Guest = require("../models/Guest");
+
+console.log("FIELDS:", Object.keys(Guest.schema.paths));
+console.log("INDEXES:", Guest.schema.indexes());
+

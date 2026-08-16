@@ -30,6 +30,14 @@ router
 
 router.get("/new",isLogged,listingContrller.renderNewForm);
 
+router.get("/search",listingContrller.searchListing);
+
+router
+.route("/:id/book")
+.get(listingContrller.bookForm)
+.post(listingContrller.bookListing);
+
+
 router.route("/:id")
 .get( listingContrller.showListing)
 .put(isLogged,upload.single('listing[image]'),validateListing, listingContrller.updateListing)

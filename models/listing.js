@@ -24,7 +24,7 @@ owner:{
 },
 
 category:{
-  typr:String,
+  type:String,
   enum:["mountains","arctic","farms","rooms","iconic cities"]
 }
 }

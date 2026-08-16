@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate")%>
+<div class="row mt-3">
+    <div class="col offset-3">
+     <form  method="post" action="/listings/<%=id%>/book" novalidate class="needs-validation" >
+<div class="mb-3 col-8">
+  <label for="formGroupExampleInput" class="form-label"> Full Name</label>
+  <input type="text" class="form-control" name="guest[name]" id="formGroupExampleInput" placeholder="Enter name"  required>
+    <div class="invalid-feedback">Please enter the Phone number</div>
+</div>
+  <div class="mb-3 col-8">
+    <label for="number" class="form-label">Phone-No</label>
+    <input type="number"  name="guest[phone]" class="form-control" id="number"  required >
+     <div class="invalid-feedback">Please enter the Phone number</div>
+  </div>
+        
+  <div class="mb-3 col-8">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" name="guest[email]" id="exampleInputEmail1" aria-describedby="emailHelp" class="form-control" required > 
+      <div class="invalid-feedback">Please enter the Phone number</div>
+  </div>
+   
+  <div class="mb-3 col-8">
+    <label for="number" class="form-label" >No Guests</label>
+    <input type="number" name="guest[guest]" class="form-control" id="number"  required>
+      <div class="invalid-feedback">Please enter the Phone number</div>
+    
+  </div>
+
+  <div class="mb-3 col-4">
+    <label for="checkIn" class="form-label" >Enter Check in date</label>
+    <input type="date" name="guest[checkIn]" class="form-control" id="checkIn" placeholder="DD/MM/YYYY" required>
+      <div class="invalid-feedback">Please enter the Phone number</div>
+    
+  </div>
+  <div class="mb-3 col-4">
+    <label for="checkOut" class="form-label" >Enter Check out date</label>
+    <input type="date" name="guest[checkOut]" placeholder="DD/MM/YYYY" class="form-control" id="checkOut"  required>
+      <div class="invalid-feedback">Please enter the Phone number</div>
+    
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>
+    </div>
+</div>

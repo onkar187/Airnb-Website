@@ -20,23 +20,26 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
 const userRouter = require("./routes/user");
+const aiRouter = require("./routes/ai");
 const dbUrl =process.env.ATLASDB_URL;
 const MongoStore = require('connect-mongo');
 
-const store = MongoStore.create({
-    mongoUrl:dbUrl,
-    crypto:{
-        secret:process.env.SECRET
-    },
-    touchAfter:24 *3600,
-})
+const Listing = require("./models/listing");
+const {sampleListings} = require("./init/data");
 
-store.on("error",()=>{
-    console.log("ERROR IN MONGO SESSION STORE",err);
-})
+// const store = MongoStore.create({
+//     mongoUrl:dbUrl,
+//     crypto:{
+//         secret:process.env.SECRET
+//     },
+//     touchAfter:24 *3600,
+// })
+
+// store.on("error",()=>{
+//     console.log("ERROR IN MONGO SESSION STORE",err);
+// })
 const sessionOptions = {
-    store,
-    secret:process.env.SECRET,
+      secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true    ,
     cookie:{
@@ -52,7 +55,9 @@ main().then((res)=>{
     console.log(err);
 })
 app.use(express.urlencoded({extended:true}));
+
  const methodOverride = require('method-override');
+ app.use(express.json());
 const review = require("./models/review");
 
  app.use(methodOverride('_method'));
@@ -69,9 +74,9 @@ app.listen(8080,()=>{
 
 
 
-app.get("/",(req,res)=>{
-    res.send("Hi, I am root")
-})
+// app.get("/",(req,res)=>{
+//     res.send("Hi, I am root")
+// })
 
 
 
@@ -91,10 +96,26 @@ app.use((req,res,next)=>{
 })
 
 
+app.get("/alldata",(req,res)=>{
+   
+    sampleListings.forEach((data)=>{
+        let newData = new Listing({
+            ...data,
+            username:"Devdatt"
+
+        })
+
+        newData.save();
+    })
+
+    res.send("done");
+
+})
 
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
+app.use("/ai", aiRouter);
 
 
 
@@ -110,4 +131,13 @@ app.use((err,req,res,next)=>{
     res.render("error.ejs",{message});
    
 })
+
+
+app.get("/",(req,res)=>{
+    res.send("hello");
+})
+
+
+
+
 
