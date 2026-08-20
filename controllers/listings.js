@@ -94,13 +94,16 @@ module.exports.searchListing = async(req,res)=>{
 
 module.exports.bookForm = async (req,res)=>{
    let {id} = req.params;
+   
    res.render("listings/book.ejs",{id});
+    
+
 
 }
 
 
 module.exports.bookListing= async(req,res)=>{
-console.log(req.body.guest);
+
  let {id} = req.params   
 
  const { checkIn, checkOut } = req.body.guest;
@@ -128,9 +131,4 @@ req.flash("success","Booked Succssfully");
  res.redirect("/listings");
 }
 
-
-//let Guest = require("../models/Guest");
-
-console.log("FIELDS:", Object.keys(Guest.schema.paths));
-console.log("INDEXES:", Guest.schema.indexes());
 

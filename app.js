@@ -27,6 +27,8 @@ const MongoStore = require('connect-mongo');
 const Listing = require("./models/listing");
 const {sampleListings} = require("./init/data");
 
+
+
 // const store = MongoStore.create({
 //     mongoUrl:dbUrl,
 //     crypto:{
@@ -96,20 +98,9 @@ app.use((req,res,next)=>{
 })
 
 
-app.get("/alldata",(req,res)=>{
+app.get("/alldata",async(req,res)=>{
    
-    sampleListings.forEach((data)=>{
-        let newData = new Listing({
-            ...data,
-            username:"Devdatt"
-
-        })
-
-        newData.save();
-    })
-
-    res.send("done");
-
+    await Guest.collection.drop();
 })
 
 app.use("/listings",listingsRouter);
@@ -136,6 +127,14 @@ app.use((err,req,res,next)=>{
 app.get("/",(req,res)=>{
     res.send("hello");
 })
+
+
+
+
+
+
+
+
 
 
 
