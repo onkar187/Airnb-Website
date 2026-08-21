@@ -109,7 +109,7 @@ app.use("/",userRouter);
 app.use("/ai", aiRouter);
 
 
-
+app.use("/",listingsRouter);
 app.use((req, res, next) => {
 
 throw new ExpressError(404,"Page Not Found");

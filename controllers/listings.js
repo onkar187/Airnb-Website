@@ -108,6 +108,12 @@ module.exports.bookListing= async(req,res)=>{
 
  const { checkIn, checkOut } = req.body.guest;
 
+    if(new Date(checkIn) > new Date(checkOut))
+    {
+        req.flash("success","Incorrect date you enter");
+       return res.redirect(`/listings/${id}`);
+    }
+
     // Check whether dates are already booked
     const existingBooking = await Guest.findOne({
         listing: id,
@@ -123,6 +129,8 @@ module.exports.bookListing= async(req,res)=>{
 
         return res.redirect(`/listings/${id}`);
     }
+
+    
 
 let book = new Guest(req.body.guest);
  book.listing = id ;

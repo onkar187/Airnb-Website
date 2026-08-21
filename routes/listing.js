@@ -34,7 +34,7 @@ router.get("/search",listingContrller.searchListing);
 
 router
 .route("/:id/book")
-.get(listingContrller.bookForm)
+.get(isLogged,listingContrller.bookForm)
 .post(listingContrller.bookListing);
 
 
