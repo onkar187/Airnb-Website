@@ -1,5 +1,5 @@
 let Listing = require("../models/listing");
-let Guest = require("../models/Guest")
+let Guest = require("../models/guest");
 
 module.exports.index = async (req,res)=>{
 const allListings =  await Listing.find({});
