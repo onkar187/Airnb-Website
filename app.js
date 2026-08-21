@@ -98,10 +98,6 @@ app.use((req,res,next)=>{
 })
 
 
-app.get("/alldata",async(req,res)=>{
-   
-    await Guest.collection.drop();
-})
 
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
